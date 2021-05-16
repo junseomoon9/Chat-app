@@ -1,0 +1,111 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.intro-menu {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #A0E4E0;
+}
+
+.login-signup-container {
+  border-style: solid;
+  border-radius: 7px;
+  border-width: 1px;
+  width: 400px;
+  height: 325px;
+  padding: 1rem;
+  background-color: #F7FFF7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-signup-container h1{
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.login-signup-container input {
+  height: 2.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.login-signup-container button {
+  height: 2.5rem;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 1rem;
+  background-color: #1C736C;
+  color: white;
+}
+
+.login-signup-container button:hover {
+  cursor: pointer;
+  background-color: #28A49A;
+}
+
+.login-signup-container p {
+  text-decoration: underline;
+}
+
+.login-signup-container p:hover {
+  cursor: pointer;
+  color: rgb(73, 73, 73);
+}
+
+.chat-menu {
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-menu-container {
+  width: 100vw;
+  height: 100vh;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+}
+
+.conversations {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-section {
+  width: 70%;
+  height: 100%;
+  border-left: 2px solid black;
+}
+
+.conversations-header {
+  display: flex;
+  font-weight: 500;
+  font-size: 0.7rem;
+  padding: 0.5rem;
+  justify-content: space-between;
+  
+  border-bottom: 2px solid black;
+}
+
+.conversations-header button {
+  font-weight: 400;
+  font-size: 0.75rem;
+  width: 4rem;
+}
