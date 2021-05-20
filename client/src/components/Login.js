@@ -1,12 +1,16 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useEffect, useContext, useRef} from 'react'
 import {UsersContext} from '../context/UsersContext'
 import ChatMenu from './ChatMenu'
-const Login = ({setIntroMenu}) => {
+import socketClient from "socket.io-client";
 
+const Login = ({setIntroMenu}) => {
+    const SERVER = "http://127.0.0.1:3001"
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [successfulLogin, setSuccessfulLogin] = useState(false)
-    const {users} = useContext(UsersContext)
+    const {users, setCurrentUsername} = useContext(UsersContext)
+    const socketRef = useRef();
+
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -23,6 +27,8 @@ const Login = ({setIntroMenu}) => {
             if (obj.username === user.username) {
                 if (obj.password == user.password) {
                     setSuccessfulLogin(true)
+                    setCurrentUsername(user.username)
+                    socketRef.current = socketClient(SERVER);
                     console.log("Successful Login")
                 }
             }
@@ -32,7 +38,7 @@ const Login = ({setIntroMenu}) => {
 
     if (successfulLogin){
         return (
-            <ChatMenu/>
+            <ChatMenu socketRef={socketRef}/>
         )
     } else {
         return (

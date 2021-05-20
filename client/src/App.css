@@ -76,8 +76,7 @@
   height: 100vh;
   
   display: flex;
-  justify-content: center;
-  align-items: center;
+  
   border: 2px solid black;
 }
 
@@ -86,12 +85,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.chat-section {
-  width: 70%;
-  height: 100%;
-  border-left: 2px solid black;
 }
 
 .conversations-header {
@@ -108,4 +101,134 @@
   font-weight: 400;
   font-size: 0.75rem;
   width: 4rem;
+}
+
+.new-conversation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  z-index: 3;
+  backdrop-filter: blur(7px);
+}
+.new-conversation-container {
+  position: absolute;
+  width: 50vw;
+  height: 40vh;
+  background-color: rgb(197, 197, 197);
+  animation: new-conversation 1s  forwards;
+  padding: 1rem;
+  border: 1px solid black
+}
+
+.new-conversation-container input {
+  position: relative;
+  width: 40%;
+  height: 35px;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.new-conversation-container button {
+  margin-top: 1rem;
+  width: 25%;
+  height: 25px;
+  background-color: rgb(53, 188, 241);
+  border: 1px rgb(53, 188, 241) solid;
+}
+
+.new-conversation-container button:hover {
+  cursor: pointer;
+  background-color: rgb(8, 174, 240);
+  border: 1px rgb(8, 174, 240) solid;
+}
+
+.close-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  margin: 1rem 1rem;
+}
+
+.close-icon:hover {
+  cursor: pointer;
+  color: gray;
+}
+
+@keyframes new-conversation {
+  from {top: -100px; opacity: 0.5}
+  to{top: 100px;opacity: 1}
+  
+
+}
+
+.conversation {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.conversation h1{
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.conversation:hover {
+  background-color: rgb(167, 167, 167);
+  cursor:pointer;
+}
+
+.chat-section {
+  width: 50%;
+  height: 100%;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.messages-container {
+  width: 100%;
+  flex: 1;
+  overflow-y:auto;
+}
+
+.message-input-container {
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-top: 2px solid black;
+}
+
+.message-input {
+  height: 50%;
+  width: 30vw;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.message-input-btn {
+  width: 15vw;
+  height: 50%;
+  background-color: rgb(57, 57, 235);
+  border: 1px black solid;
+  font-size: 1rem;
+  color: white;
+}
+
+.message-input-btn:hover {
+  cursor: pointer;
+  background-color: rgb(105, 105, 240);
 }
