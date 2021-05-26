@@ -1,64 +1,68 @@
 import React, {useState, useContext, useEffect, useRef} from 'react'
 import {ConversationsContext} from '../context/ConversationsContext'
 import {UsersContext} from '../context/UsersContext'
-import socketClient from "socket.io-client";
 import Message from './Message'
+import axios from "axios"
 
 const ChatSection = ({socketRef}) => {
     
-    const {currentRecipient, conversations, addNewMessage} = useContext(ConversationsContext)
-    const {currentusername} = useContext(UsersContext)
+    const {currentChatroom, conversations, addNewMessage} = useContext(ConversationsContext)
+    const {currentUser} = useContext(UsersContext)
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
     const input = useRef();
 
     const handleInputChange = (e) => {
         setMessage(e.target.value)
-        
     }
 
     const handleNewMessages = () => {
-        const obj = conversations.find(el => el.recipient === currentRecipient)
+  
+        const obj = conversations.find(el => el.number === currentChatroom)
         if (obj !== undefined){
+            
             setMessages([...obj.messages])
         }
-        console.log(currentRecipient)
     }
 
     useEffect(() => {
         handleNewMessages()
-    }, [currentRecipient, conversations])
+    }, [currentChatroom, conversations])
 
     useEffect(() => {
-        socketRef.current.on('receive-message', ({username, message}) => {
+        socketRef.current.on('receive-message', message => {
             
-            const envelope = {recipient: username, container: {username: username, message: message}}
-            addNewMessage(envelope)
-            
+            addNewMessage(message)
         })
-
-        
     }, [socketRef])
 
     const handleNewMessage =   (e) => {
         e.preventDefault()
         
-        const envelope = {recipient: currentRecipient, container: {username: currentusername, message: message}}
-        //ADD NEW MESSAGE
-        addNewMessage(envelope)
-        handleNewMessages()
-        socketRef.current.emit("send-message", {username: currentusername, message: message})
-        
-        setMessage("")
-        input.current.value = ""
+        axios.post("http://localhost:3001/chat/newmessage", {chatroom: currentChatroom, author: currentUser._id, message_body: message})
+        .then(res => {
+            
+            addNewMessage(res.data)
+            
+            handleNewMessages()
+            setMessage("")
+            input.current.value = ""
+
+            socketRef.current.emit("send-message", res.data)
+            
+        }).catch(err => {
+            console.log(err)
+        })
+
+           
         
     }
 
     return (
         <div className="chat-section">
             <div className="messages-container">
-                {messages.map(obj => (
-                    <Message obj={obj}/>
+                {messages.map(message => (
+                    <Message message={message}/>
                 ))}
             </div>
             

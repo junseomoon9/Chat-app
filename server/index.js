@@ -1,16 +1,34 @@
 const express = require('express')
 const app = express()
-
 const server = require('http').createServer(app)
-const io = require('socket.io')(server, {cors: { origin: "*"}})
-
-
+const io = require('socket.io')(server, {cors: "*"})
+var cors = require('cors')
+app.use(cors())
 const router = express.Router()
+const dotenv = require('dotenv').config()
+const mongoose = require('mongoose')
+
 app.use(router)
 
-router.get("/", (req, res) => {
-    res.send({response: "I am alive"}).status(200)
+//Connect to DB
+mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
+    console.log('connected to db!')
 })
+
+// router.get("/", (req, res) => {
+//     res.send({response: "I am alive"}).status(200)
+// })
+
+//Import Routes
+const authRoute = require('./routes/auth')
+const chatRoute = require('./routes/chat')
+
+//Middleware
+app.use(express.json())
+
+//Route Middlewares
+app.use('/', authRoute)
+app.use('/chat', chatRoute)
 
 server.listen(3001, () => {
     console.log('Server runing...')
@@ -19,24 +37,24 @@ server.listen(3001, () => {
 io.on('connection', (socket) => {
     console.log("User connected: " + socket.id)
 
-    // socket.on("join-room", (data) => {
-    //     socket.join(1);
-    //     console.log("User Joined Room: " + 1);
-    //   });
+    socket.on("join-room", (data) => {
+        socket.join(data.room_id);
+        console.log("User Joined Room: " + data.room_id);
+    });
+
+    socket.on("create-room", (data) => {
+        socket.broadcast.emit('create-room', data)
+    })
 
     socket.on("send-message", (data) => {
-        socket.broadcast.emit('receive-message', data)
-        //socket.to(1).emit("send-message", data);
+        
+        socket.to(data.room).emit("receive-message", data);
         console.log("message sent")
     })
 
-    
-
     socket.on("disconnect", (data) => {
-        
         console.log(socket.id + "has disconnected")
     })
-
 
 })
 

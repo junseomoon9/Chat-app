@@ -14,12 +14,12 @@
   background-color: #A0E4E0;
 }
 
-.login-signup-container {
+.login-container, .signup-container {
   border-style: solid;
   border-radius: 7px;
   border-width: 1px;
   width: 400px;
-  height: 325px;
+  height: 375px;
   padding: 1rem;
   background-color: #F7FFF7;
   display: flex;
@@ -27,18 +27,22 @@
   justify-content: space-between;
 }
 
-.login-signup-container h1{
+.signup-container {
+  height: 500px;
+}
+
+.login-container h1, .signup-container h1{
   font-weight: 500;
   font-size: 2rem;
 }
 
-.login-signup-container input {
+.login-container input, .signup-container input {
   height: 2.5rem;
   padding: 0.5rem;
   font-size: 1rem;
 }
 
-.login-signup-container button {
+.login-container button, .signup-container button {
   height: 2.5rem;
   border-radius: 5px;
   border-style: solid;
@@ -48,16 +52,16 @@
   color: white;
 }
 
-.login-signup-container button:hover {
+.login-container button:hover, .signup-container button:hover {
   cursor: pointer;
   background-color: #28A49A;
 }
 
-.login-signup-container p {
+.login-container p, .signup-containerr p {
   text-decoration: underline;
 }
 
-.login-signup-container p:hover {
+.login-container p:hover, .signup-container p:hover {
   cursor: pointer;
   color: rgb(73, 73, 73);
 }
@@ -231,4 +235,66 @@
 .message-input-btn:hover {
   cursor: pointer;
   background-color: rgb(105, 105, 240);
+}
+
+.message-container-blue {
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  min-height: 2rem;
+  border-radius: 1rem;
+}
+
+.message-container-red {
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+  min-height: 2rem;
+  
+}
+
+.message-blue {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 10vw;
+  max-width: 50%;
+  background-color: blue;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.4rem 0.4rem;
+}
+.message-blue h1 {
+  color: white;
+  font-weight: 400;
+  font-size: 1rem;
+  font-style: none;
+  
+}
+
+
+.message-red {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 10vw;
+  max-width: 50%;
+  background-color: red;
+  color: white;
+  border-radius: 1rem;
+  font-size: 1rem;
+  padding: 0.4rem 0.4rem;
+}
+
+.message-red h1 {
+  color: white;
+  font-weight: 400;
+  font-size: 1rem;
+  font-style: none;
 }

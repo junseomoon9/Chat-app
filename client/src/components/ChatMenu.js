@@ -1,6 +1,5 @@
 import React from 'react'
 import ChatSection from "./ChatSection"
-import ChatSection1 from './ChatSection1'
 import Conversations from "./Conversations"
 
 const ChatMenu = ({socketRef}) => {

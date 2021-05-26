@@ -5,31 +5,37 @@ export default (state, action) => {
               ...state, 
               users: [action.payload, ...state.users]
           }
-      case "SET_CURRENT_USERNAME":
+      case "SET_CURRENT_USER":
           return {
               ...state,
-              currentusername: action.payload
+              currentUser: action.payload
           }
-      case "SET_CURRENT_RECIPIENT":
+      case "SET_CURRENT_CHATROOM":
           return {
               ...state,
-              currentRecipient: action.payload
+              currentChatroom: action.payload
           }
       case "CREATE_NEW_CONVERSATION":
           return {
               ...state,
-              conversations: [action.payload, ...state.conversations]
+              conversations: [ ...state.conversations, action.payload]
+          }
+      case "RETRIEVE_EXISTING_CONVERSATIONS": 
+          return {
+              ...state,
+              conversations: [...action.payload]
           }
       case "ADD_NEW_MESSAGE":
           return {
             ...state,
             conversations: state.conversations.map(conversation => {
-                if (conversation.recipient !== action.payload.recipient){
+                if (conversation.number !== action.payload.room){
                     return conversation
                 } else {
                     return {
                         ...conversation,
-                        messages: [...conversation.messages, action.payload.container]
+                        messages: [...conversation.messages, action.payload]
+                        
                     }
                 }
             })

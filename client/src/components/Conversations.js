@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react'
 import NewConversation from './NewConversation'
 import {ConversationsContext} from '../context/ConversationsContext'
+import {UsersContext} from '../context/UsersContext'
 import Conversation from './Conversation'
 
 const Conversations = ({socketRef}) => {
@@ -12,17 +13,16 @@ const Conversations = ({socketRef}) => {
         setNewConvoBtnClicked(!newConvoBtnClicked)
     }
 
-    
-
     const {conversations} = useContext(ConversationsContext)
+    const {currentUser} = useContext(UsersContext)
 
     return (
         <div className="conversations">
             <div className="conversations-header">
-                <h1>Junseo Moon</h1>
+                <h1>{currentUser.username}</h1>
                 <button onClick={handleNewConvoBtn}>New Convo</button>
             </div>
-            <NewConversation newConvoBtnClicked={newConvoBtnClicked} handleNewConvoBtn={handleNewConvoBtn}/>
+            <NewConversation socketRef={socketRef} newConvoBtnClicked={newConvoBtnClicked} handleNewConvoBtn={handleNewConvoBtn}/>
             {conversations.map(conversation => (
                 <Conversation conversation={conversation} socketRef={socketRef}/>
             ))}

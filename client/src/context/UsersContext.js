@@ -1,7 +1,7 @@
 import React, {createContext, useReducer, useEffect} from 'react'
 import AppReducer from './AppReducer'
 const initialState = {
-    currentusername: "",
+    currentUser: {},
     users: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
 }
 
@@ -20,12 +20,12 @@ export const UsersProvider = props => {
         dispatch({type: "SIGNUP_NEW_USER", payload: user})
     }
 
-    const setCurrentUsername = username => {
-        dispatch({type: "SET_CURRENT_USERNAME", payload: username})
+    const setCurrentUser = user => {
+        dispatch({type: "SET_CURRENT_USER", payload: user})
     }
 
     return (
-        <UsersContext.Provider value={{users: state.users, currentusername: state.currentusername, signupNewUser, setCurrentUsername}}>
+        <UsersContext.Provider value={{users: state.users, currentUser: state.currentUser, signupNewUser, setCurrentUser}}>
             {props.children}
         </UsersContext.Provider>
     )
