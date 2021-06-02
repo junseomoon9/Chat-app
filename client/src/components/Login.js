@@ -5,6 +5,8 @@ import {ConversationsContext} from '../context/ConversationsContext'
 import ChatMenu from './ChatMenu'
 import socketClient from "socket.io-client";
 import {Link} from 'react-router-dom'
+import loginimage from '../images/7613.jpg'
+import {FaUser, FaLock} from 'react-icons/fa'
 
 import axios from "axios"
 
@@ -40,6 +42,7 @@ const Login = () => {
             retrieveConversations(user)
             retrieveMessages()
             setSuccessfulLogin(true)
+            
             console.log(res.data.name)
         }).catch(err => {
             
@@ -50,20 +53,45 @@ const Login = () => {
 
     if (successfulLogin){
         return (
-            <ChatMenu socketRef={socketRef}/>
+            <ChatMenu to="/chat" socketRef={socketRef}/>
+            
         )
     } else {
         return (
+            <div className="intro-menu">
+                <div className="container">
+                    <div className="login-container-container">
+                        <div className="title-container">
+                            <h2>Welcome to SendIt</h2>
+                        </div>
+                        <form onSubmit={login} className="login-container">
+                            <h1>Username</h1>
+                            <div className="icon-input-container">
+                                <div className="icon-container">
+                                    <FaUser className="user-icon"/>
+                                </div>
+                                
+                                <input onChange={handleUsernameChange} type="text"></input>
+                            </div>
+                            <h1>Password</h1>
+                            <div className="icon-input-container">
+                                <div className="icon-container">
+                                     <FaLock className="lock-icon"/>
+                                </div>
+                                <input onChange={handlePasswordChange} type="password"></input>
+                            </div>
+                            <button onClick={login}>Login</button>
+                            <p><Link to="/signup">Create an account</Link></p>
+                        </form>
+                    </div>
+                    
+                    <div className="login-image-container">
+                        <img className="login-image" src={loginimage} alt="" />
+                    </div>
+                </div>
+                
+            </div>
             
-            <form onSubmit={login} className="login-container">
-                <h1>Username</h1>
-                <input onChange={handleUsernameChange} type="text"></input>
-                <h1>Password</h1>
-                <input onChange={handlePasswordChange} type="password"></input>
-                <button onClick={login}>Login</button>
-                <Link to="/signup"><p>Create an account</p></Link>
-          
-            </form>
             
         )
     }

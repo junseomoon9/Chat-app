@@ -10,6 +10,7 @@ const ChatSection = ({socketRef}) => {
     const {currentUser} = useContext(UsersContext)
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
+    const [recipientUsername, setRecipientUsername] = useState("")
     const input = useRef();
 
     const handleInputChange = (e) => {
@@ -27,6 +28,7 @@ const ChatSection = ({socketRef}) => {
 
     useEffect(() => {
         handleNewMessages()
+        handleRecipientUsername()
     }, [currentChatroom, conversations])
 
     useEffect(() => {
@@ -38,28 +40,52 @@ const ChatSection = ({socketRef}) => {
 
     const handleNewMessage =   (e) => {
         e.preventDefault()
+
+        if (message != "") {
+            axios.post("http://localhost:3001/chat/newmessage", {chatroom: currentChatroom, author: currentUser._id, message_body: message})
+            .then(res => {
+                
+                addNewMessage(res.data)
+                
+                handleNewMessages()
+                setMessage("")
+                input.current.value = ""
+
+                socketRef.current.emit("send-message", res.data)
+                
+            }).catch(err => {
+                console.log(err)
+            })
+        }
         
-        axios.post("http://localhost:3001/chat/newmessage", {chatroom: currentChatroom, author: currentUser._id, message_body: message})
-        .then(res => {
-            
-            addNewMessage(res.data)
-            
-            handleNewMessages()
-            setMessage("")
-            input.current.value = ""
+        
+        
+    }
 
-            socketRef.current.emit("send-message", res.data)
+    const handleRecipientUsername = () => {
+        
+        const convo = conversations.find(el => el.number === currentChatroom)
+        if (convo != null) {
             
-        }).catch(err => {
-            console.log(err)
-        })
-
+            const recipientUserID = convo.users.find(user => (user !== currentUser._id))
            
-        
+            axios.post('http://localhost:3001/finduser', {_id: recipientUserID})
+            .then(res => {
+                setRecipientUsername(res.data.user.username)
+            }).catch(err =>{
+                console.log(err)
+            })
+  
+        }
+ 
     }
 
     return (
         <div className="chat-section">
+
+            <div className="chat-section-header">
+                <h1>{recipientUsername}</h1>
+            </div>
             <div className="messages-container">
                 {messages.map(message => (
                     <Message message={message}/>

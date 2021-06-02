@@ -3,6 +3,9 @@ import {UsersContext} from '../context/UsersContext'
 const Message = ({message}) => {
 
     const {currentUser} = useContext(UsersContext)
+
+    
+
     if (message.author === currentUser._id) {
         return (
             <div className="message-container-blue">

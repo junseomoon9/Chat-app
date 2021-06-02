@@ -3,6 +3,7 @@ import NewConversation from './NewConversation'
 import {ConversationsContext} from '../context/ConversationsContext'
 import {UsersContext} from '../context/UsersContext'
 import Conversation from './Conversation'
+import {FaPlus} from 'react-icons/fa'
 
 const Conversations = ({socketRef}) => {
 
@@ -14,13 +15,13 @@ const Conversations = ({socketRef}) => {
     }
 
     const {conversations} = useContext(ConversationsContext)
-    const {currentUser} = useContext(UsersContext)
+    // const {currentUser} = useContext(UsersContext)
 
     return (
         <div className="conversations">
             <div className="conversations-header">
-                <h1>{currentUser.username}</h1>
-                <button onClick={handleNewConvoBtn}>New Convo</button>
+                <h1>Conversations</h1>
+                <button className="new-convo-btn" onClick={handleNewConvoBtn}><FaPlus className="new-convo-btn-icon"/></button>
             </div>
             <NewConversation socketRef={socketRef} newConvoBtnClicked={newConvoBtnClicked} handleNewConvoBtn={handleNewConvoBtn}/>
             {conversations.map(conversation => (

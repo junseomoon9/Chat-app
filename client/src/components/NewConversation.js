@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react'
 import {ConversationsContext} from "../context/ConversationsContext"
 import {UsersContext} from "../context/UsersContext"
-import {FaTimes} from 'react-icons/fa'
+import {FaTimes, FaPlus} from 'react-icons/fa'
 import axios from 'axios'
 
 const NewConversation = ({socketRef, newConvoBtnClicked, handleNewConvoBtn}) => {
@@ -56,7 +56,7 @@ const NewConversation = ({socketRef, newConvoBtnClicked, handleNewConvoBtn}) => 
                         <h2>Username:</h2>
                         <input type="text" onChange={handleUsernameChange}></input>
                     </div>
-                    <button onClick={(e) => {handleNewConversation(e); handleNewConvoBtn(e); }}>Create</button>
+                    <button onClick={(e) => {handleNewConversation(e); handleNewConvoBtn(e); }}>ss</button>
                 </form>
             </div>
         </div>) : ""

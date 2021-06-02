@@ -3,6 +3,8 @@ import {UsersContext} from '../context/UsersContext'
 import {Link, Redirect} from 'react-router-dom'
 import axios from "axios"
 
+import signupimage from '../images/5267.jpg'
+
 const Signup = () => {
 
     const [name, setName] = useState("")
@@ -41,18 +43,35 @@ const Signup = () => {
     }
      
     return ( (!signedup) ? (
-        <form onSubmit={signup} className="signup-container">
-            <h1>Name</h1>
-            <input onChange={handleNameChange} type="text"></input>
-            <h1>Username</h1>
-            <input onChange={handleUsernameChange} type="text"></input>
-            <h1>Email</h1>
-            <input onChange={handleEmailChange} type="text"></input>
-            <h1>Password</h1>
-            <input onChange={handlePasswordChange} type="password"></input>
-            <button onClick={signup}>Signup</button>
-            <Link to="/login"><p >Login Page</p></Link>
-        </form> ) : (<Redirect from="/signup" to="/login" />)
+        <div className="intro-menu">
+            <div className="container-s">
+                <div className="signup-image-container">
+                    <img className="signup-image" src={signupimage} alt="" />
+                </div>
+
+                <div className="signup-container-container">
+                    <div className="title-signup-container">
+                        <h2>Signup</h2>
+                    </div>
+                    <form onSubmit={signup} className="signup-container">
+                        <h1>Name</h1>
+                        <input onChange={handleNameChange} type="text"></input>
+                        <h1>Username</h1>
+                        <input onChange={handleUsernameChange} type="text"></input>
+                        <h1>Email</h1>
+                        <input onChange={handleEmailChange} type="text"></input>
+                        <h1>Password</h1>
+                        <input onChange={handlePasswordChange} type="password"></input>
+                        <button onClick={signup}>Signup</button>
+                        <Link to="/login"><p >Login Page</p></Link>
+                    </form>
+                </div>
+                
+            </div>
+             
+        </div>
+        
+        ) : (<Redirect from="/signup" to="/login" />)
     )
 }
 
