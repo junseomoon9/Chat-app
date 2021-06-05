@@ -6,7 +6,7 @@ import axios from "axios"
 
 const ChatSection = ({socketRef}) => {
     
-    const {currentChatroom, conversations, addNewMessage} = useContext(ConversationsContext)
+    const {currentChatroom, conversations, addNewMessage, deleteMessage} = useContext(ConversationsContext)
     const {currentUser} = useContext(UsersContext)
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
@@ -36,12 +36,16 @@ const ChatSection = ({socketRef}) => {
             
             addNewMessage(message)
         })
+
+        socketRef.current.on('delete-message', message => {
+            deleteMessage(message)
+        })
     }, [socketRef])
 
     const handleNewMessage =   (e) => {
         e.preventDefault()
 
-        if (message != "") {
+        if (message !== "") {
             axios.post("http://localhost:3001/chat/newmessage", {chatroom: currentChatroom, author: currentUser._id, message_body: message})
             .then(res => {
                 
@@ -57,9 +61,20 @@ const ChatSection = ({socketRef}) => {
                 console.log(err)
             })
         }
+    }
+
+    const handleDeleteMessage = (e, data) => {
+        e.preventDefault()
         
-        
-        
+        axios.post("http://localhost:3001/chat/deleteMessage", data.message)
+        .then(res =>{
+            
+            deleteMessage(data.message)
+            socketRef.current.emit("delete-message", data.message)
+            handleNewMessages()
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     const handleRecipientUsername = () => {
@@ -88,7 +103,7 @@ const ChatSection = ({socketRef}) => {
             </div>
             <div className="messages-container">
                 {messages.map(message => (
-                    <Message message={message}/>
+                    <Message message={message} handleDeleteMessage={handleDeleteMessage}/>
                 ))}
             </div>
             

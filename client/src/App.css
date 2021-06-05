@@ -19,13 +19,13 @@
   min-width: 700px;
   max-width: 900px;
   height: 100%;
-  min-height: 500px;
-  max-height: 500px;
+  min-height: 470px;
+  max-height: 470px;
   background-color: white;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: 2rem 2rem;
+  margin: 1rem 2rem;
   box-shadow: 1px 1px 2px 2px black;
 }
 
@@ -98,7 +98,7 @@
   min-width: 800px;
   max-width: 1000px;
   
-  min-height: 450px;
+  min-height: 470px;
   
   background-color: white;
   display: flex;
@@ -165,7 +165,7 @@
 
 .signup-container h1{
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 .icon-input-container {
@@ -240,7 +240,7 @@
  
 }
 .signup-container button {
-  margin-top: 0.7rem;
+  margin-top: 0.35rem;
 }
 
 .login-container button:hover, .signup-container button:hover {
@@ -248,13 +248,13 @@
   background-image: linear-gradient(326deg, #a4508b 0%, #8038a1 74%);
 }
 
-.login-container p, .signup-containerr p {
+.link {
   width: max-content;
   
   text-decoration: underline;
 }
 
-.login-container p:hover, .signup-container p:hover {
+.link:hover {
   cursor: pointer;
   color: rgb(73, 73, 73);
 }
@@ -386,34 +386,62 @@
 }
 .new-conversation-container {
   position: absolute;
-  width: 50vw;
-  height: 40vh;
+  
+  min-width: 500px;
+  
+  min-height: 220px;
   background-color: rgb(197, 197, 197);
-  animation: new-conversation 1s  forwards;
+  animation: new-conversation 0.5s  forwards;
   padding: 1rem;
-  border: 1px solid black
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.new-conversation-container h1{
+  font-weight: 400;
+}
+
+.new-conversation-container h2{
+  font-weight: 400;
 }
 
 .new-conversation-container input {
   position: relative;
   width: 40%;
+  
   height: 35px;
   padding: 5px;
   font-size: 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .new-conversation-container button {
-  margin-top: 1rem;
-  width: 25%;
-  height: 25px;
-  background-color: rgb(53, 188, 241);
-  border: 1px rgb(53, 188, 241) solid;
+  margin-top: 0.25rem;
+  width: 120px;
+  height: 40px;
+  background-color: rgb(192, 62, 243);
+  border: 1px rgb(192, 62, 243) solid;
 }
 
 .new-conversation-container button:hover {
   cursor: pointer;
-  background-color: rgb(8, 174, 240);
-  border: 1px rgb(8, 174, 240) solid;
+  background-color: rgb(203, 103, 243);
+  border: 1px rgb(211, 124, 245)solid;
+}
+
+.error-message {
+  font-size: 13px;
+  margin-left: 1px;
+  color: red;
+  text-decoration: none;
+}
+
+.response-message {
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 1px;
+  color: green;
+  text-decoration: none;
 }
 
 .close-icon {
@@ -523,42 +551,56 @@
   background-color: rgb(235, 60, 235);
 }
 
-.message-container-blue {
+.message-container-purple {
   max-width: 100%;
   display: flex;
-  justify-content: flex-end;
+  position: relative;
+  align-items: flex-end;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
-  min-height: 2rem;
+  min-height: 3rem;
   border-radius: 1rem;
-  
+  flex-direction: column;
+ 
 }
 
-.message-container-red {
+.message-container-purple p {
+  font-size: 10px;
+}
+
+.message-container-white {
   max-width: 100%;
   display: flex;
-  justify-content: flex-start;
+  
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
   min-height: 2rem;
-  
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.message-blue {
+.message-container-white p {
+  font-size: 10px;
+}
+
+.message-purple {
+  
   display:flex;
   justify-content: center;
   align-items: center;
-  min-width: 10vw;
-  max-width: 50%;
+  min-width: 70px;
+  
+  max-width: 300px;
+  
   background-color: rgb(243, 52, 250);
   color: white;
   border-radius: 1rem;
   padding: 0.4rem 0.4rem;
   box-shadow: 1px 1px 1px 1px rgb(119, 118, 118);
 }
-.message-blue h1 {
+.message-purple h1 {
   color: white;
   font-weight: 400;
   font-size: 1rem;
@@ -567,12 +609,12 @@
 }
 
 
-.message-red {
+.message-white {
   display:flex;
   justify-content: center;
   align-items: center;
-  min-width: 10vw;
-  max-width: 50%;
+  min-width: 70px;
+  max-width: 300px;
   background-color: white;
   border-radius: 1rem;
   font-size: 1rem;
@@ -580,7 +622,7 @@
   box-shadow: 1px 1px 1px 1px rgb(119, 118, 118);
 }
 
-.message-red h1 {
+.message-white h1 {
   color: black;
   font-weight: 400;
   font-size: 1rem;
@@ -609,4 +651,14 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(165, 165, 165); 
+}
+
+.context {
+  background-color: white;
+  height: fit-content;
+}
+
+.menu-item:hover{
+  cursor: pointer;
+  background-color: grey;
 }

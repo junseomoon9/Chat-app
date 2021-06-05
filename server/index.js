@@ -52,6 +52,11 @@ io.on('connection', (socket) => {
         console.log("message sent")
     })
 
+    socket.on("delete-message", (data) => {
+        socket.to(data.room).emit("delete-message", data);
+        console.log("message deleted")
+    })
+
     socket.on("disconnect", (data) => {
         console.log(socket.id + "has disconnected")
     })

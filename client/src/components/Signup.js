@@ -12,6 +12,8 @@ const Signup = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [signedup, setSignedup] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [responseMessage, setResponseMessage] = useState("")
     //const {signupNewUser} = useContext(UsersContext)
 
     const handleNameChange = (e) => {
@@ -35,8 +37,14 @@ const Signup = () => {
         const user = {name: name, username: username, email: email, password: password}
         axios.post("http://localhost:3001/signup", user)
         .then(res => {
-            setSignedup(true)
+            setErrorMessage("")
+            setResponseMessage("Successfully Signed Up")
+            setTimeout(() => {
+                setSignedup(true)
+            }, 2300)
+            
         }).catch(err => {
+            setErrorMessage(err.response.data)
             console.log(err.response)
         })
         //signupNewUser(user)
@@ -62,6 +70,8 @@ const Signup = () => {
                         <input onChange={handleEmailChange} type="text"></input>
                         <h1>Password</h1>
                         <input onChange={handlePasswordChange} type="password"></input>
+                        <p className="error-message">{errorMessage}</p>
+                        <p className="response-message">{responseMessage}</p>
                         <button onClick={signup}>Signup</button>
                         <Link to="/login"><p >Login Page</p></Link>
                     </form>

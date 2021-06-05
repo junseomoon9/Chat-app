@@ -30,10 +30,13 @@ export const ConversationsProvider = props => {
     function retrieveMessages() {
         axios.post("http://localhost:3001/chat/retrieveMessages")
         .then(res => {
-            
-            res.data.messages.forEach(message => {
-                dispatch({type: "ADD_NEW_MESSAGE", payload: message})
-            })
+            console.log(res.data.messages)
+            for (var i = 0; i < res.data.messages.length; i++) {
+                dispatch({type: "ADD_NEW_MESSAGE", payload: res.data.messages[i]})
+            }
+            // res.data.messages.forEach(message => {
+                
+            // })
             
         }).catch(err => {
             console.log(err.response)
@@ -52,9 +55,13 @@ export const ConversationsProvider = props => {
     function setCurrentChatroom(room_id) {
         dispatch({type: "SET_CURRENT_CHATROOM", payload: room_id})
     }
+    function deleteMessage(message) {
+        console.log(message)
+        dispatch({type: "DELETE_MESSAGE", payload: message})
+    }
 
     return (
-        <ConversationsContext.Provider value={{conversations: state.conversations, currentChatroom: state.currentChatroom, retrieveConversations, createNewConversation, setCurrentChatroom, addNewMessage, retrieveMessages}}>
+        <ConversationsContext.Provider value={{conversations: state.conversations, currentChatroom: state.currentChatroom, retrieveConversations, createNewConversation, setCurrentChatroom, addNewMessage, retrieveMessages, deleteMessage}}>
             {props.children}
         </ConversationsContext.Provider>
     )

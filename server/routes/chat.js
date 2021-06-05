@@ -55,6 +55,9 @@ router.post('/newmessage', async (req, res) => {
         res.status(400).send(err)
     }
 
+    // await Room.deleteMany({})
+    // await Message.deleteMany({})
+
 })
 
 router.post('/retrieveMessages', async (req, res) => {
@@ -62,6 +65,17 @@ router.post('/retrieveMessages', async (req, res) => {
 
     try {
         res.json({messages: messages})
+    } catch (err) {
+        res.status(400).send(err)
+    }
+})
+
+router.post('/deleteMessage', async(req, res) => {
+    
+    const _id = req.body._id
+    try {
+        await Message.deleteOne({_id: _id})
+        res.json({message: "successfully deleted"})
     } catch (err) {
         res.status(400).send(err)
     }

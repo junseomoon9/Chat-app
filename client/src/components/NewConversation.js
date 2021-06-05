@@ -9,6 +9,7 @@ const NewConversation = ({socketRef, newConvoBtnClicked, handleNewConvoBtn}) => 
     const {createNewConversation, setCurrentChatroom} = useContext(ConversationsContext)
     const {currentUser} = useContext(UsersContext)
     const [recipientUsername, setRecipientUsername] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
     
 
     useEffect(() => {
@@ -28,19 +29,23 @@ const NewConversation = ({socketRef, newConvoBtnClicked, handleNewConvoBtn}) => 
 
     const handleNewConversation = (e) => {
         e.preventDefault()
-        // const conversation = {recipient: recipientUsername, messages: []};
+        
        axios.post("http://localhost:3001/chat/newconversation", {recipientUsername: recipientUsername, currentUserEmail: currentUser.email, currentUserId: currentUser._id})
        .then(res => {
            
            setCurrentChatroom(res.data.room_id)
            
-           const conversation = {room_id: res.data.room_id, users: [currentUser._id, res.data.recipientId], messages: []};
+           const conversation = {number: res.data.room_id, users: [currentUser._id, res.data.recipientId], messages: []};
            createNewConversation(conversation)
 
            socketRef.current.emit('create-room', {room_id: res.data.room_id, initiatorId: currentUser._id, recipientId: res.data.recipientId} )
            socketRef.current.emit('join-room', {room_id: res.data.room_id})
+           setErrorMessage("")
+           handleNewConvoBtn(e);
+           setRecipientUsername("")
        }).catch(err => {
            console.log(err.response)
+           setErrorMessage(err.response.data)
        })
 
     }
@@ -56,7 +61,8 @@ const NewConversation = ({socketRef, newConvoBtnClicked, handleNewConvoBtn}) => 
                         <h2>Username:</h2>
                         <input type="text" onChange={handleUsernameChange}></input>
                     </div>
-                    <button onClick={(e) => {handleNewConversation(e); handleNewConvoBtn(e); }}>ss</button>
+                    <p className="error-message">{errorMessage}</p>
+                    <button onClick={(e) => {handleNewConversation(e) }}>Create</button>
                 </form>
             </div>
         </div>) : ""

@@ -40,6 +40,21 @@ export default (state, action) => {
                 }
             })
           }
+      case "DELETE_MESSAGE":
+          return {
+              ...state,
+              conversations: state.conversations.map(conversation => {
+                if (conversation.number !== action.payload.room){
+                    return conversation
+                } else {
+                    return {
+                        ...conversation,
+                        messages: [...conversation.messages.filter(message => message._id !== action.payload._id)]
+                        
+                    }
+                }
+            })
+          }
       default:
           return state
     }

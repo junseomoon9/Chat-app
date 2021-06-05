@@ -14,6 +14,8 @@ const Login = () => {
     const SERVER = "http://127.0.0.1:3001"
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [responseMessage, setResponseMessage] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
     const [successfulLogin, setSuccessfulLogin] = useState(false)
     const {users, setCurrentUser} = useContext(UsersContext)
     const {retrieveConversations, retrieveMessages} = useContext(ConversationsContext)
@@ -35,18 +37,22 @@ const Login = () => {
 
         axios.post("http://localhost:3001/login", credentials)
         .then(res => {
+            setErrorMessage("")
             //localStorage.setItem('token', JSON.stringify(res.data.token))
             const user = {_id: res.data._id, name: res.data.name, username: res.data.username, email: res.data.email}
             setCurrentUser(user)
             socketRef.current = socketClient(SERVER);
             retrieveConversations(user)
             retrieveMessages()
-            setSuccessfulLogin(true)
+            setResponseMessage("Successfully Logged In")
+            setTimeout(() => {
+                setSuccessfulLogin(true)
+            }, 2500)
             
-            console.log(res.data.name)
+            
         }).catch(err => {
-            
-            console.log(err)
+            setErrorMessage(err.response.data)
+            console.log(err.response)
         })
         
     }
@@ -81,7 +87,9 @@ const Login = () => {
                                 <input onChange={handlePasswordChange} type="password"></input>
                             </div>
                             <button onClick={login}>Login</button>
-                            <p><Link to="/signup">Create an account</Link></p>
+                            <p className="response-message">{responseMessage}</p>
+                            <p className="error-message">{errorMessage}</p>
+                            <p className="link"><Link to="/signup">Create an account</Link></p>
                         </form>
                     </div>
                     
