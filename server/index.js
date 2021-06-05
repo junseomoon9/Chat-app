@@ -30,7 +30,7 @@ app.use(express.json())
 app.use('/', authRoute)
 app.use('/chat', chatRoute)
 
-server.listen(3001, () => {
+server.listen(process.env.PORT || 3001, () => {
     console.log('Server runing...')
 })
 
