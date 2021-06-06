@@ -46,7 +46,7 @@ const ChatSection = ({socketRef}) => {
         e.preventDefault()
 
         if (message !== "") {
-            axios.post("http://localhost:3001/chat/newmessage", {chatroom: currentChatroom, author: currentUser._id, message_body: message})
+            axios.post("https://evening-reaches-01572.herokuapp.com/chat/newmessage", {chatroom: currentChatroom, author: currentUser._id, message_body: message})
             .then(res => {
                 
                 addNewMessage(res.data)
@@ -66,7 +66,7 @@ const ChatSection = ({socketRef}) => {
     const handleDeleteMessage = (e, data) => {
         e.preventDefault()
         
-        axios.post("http://localhost:3001/chat/deleteMessage", data.message)
+        axios.post("https://evening-reaches-01572.herokuapp.com/chat/deleteMessage", data.message)
         .then(res =>{
             
             deleteMessage(data.message)
@@ -84,7 +84,7 @@ const ChatSection = ({socketRef}) => {
             
             const recipientUserID = convo.users.find(user => (user !== currentUser._id))
            
-            axios.post('http://localhost:3001/finduser', {_id: recipientUserID})
+            axios.post('https://evening-reaches-01572.herokuapp.com/finduser', {_id: recipientUserID})
             .then(res => {
                 setRecipientUsername(res.data.user.username)
             }).catch(err =>{

@@ -11,7 +11,7 @@ import {FaUser, FaLock} from 'react-icons/fa'
 import axios from "axios"
 
 const Login = () => {
-    const SERVER = "http://127.0.0.1:3001"
+    // const SERVER = "http://127.0.0.1:3001"
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [responseMessage, setResponseMessage] = useState("")
@@ -35,13 +35,13 @@ const Login = () => {
         e.preventDefault()
         const credentials = {username: username, password: password}
 
-        axios.post("http://localhost:3001/login", credentials)
+        axios.post("https://evening-reaches-01572.herokuapp.com/login", credentials)
         .then(res => {
             setErrorMessage("")
             //localStorage.setItem('token', JSON.stringify(res.data.token))
             const user = {_id: res.data._id, name: res.data.name, username: res.data.username, email: res.data.email}
             setCurrentUser(user)
-            socketRef.current = socketClient(SERVER);
+            socketRef.current = socketClient("https://evening-reaches-01572.herokuapp.com/");
             retrieveConversations(user)
             retrieveMessages()
             setResponseMessage("Successfully Logged In")

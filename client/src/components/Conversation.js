@@ -14,7 +14,7 @@ const Conversation = ({conversation, socketRef}) => {
      
         const recipientId = conversation.users.find(userId => userId !== currentUser._id)
         
-        axios.post("http://localhost:3001/finduser", {_id: recipientId})
+        axios.post("https://evening-reaches-01572.herokuapp.com/finduser", {_id: recipientId})
         .then(res => {
             
             setRecipientUsername(res.data.user.username)
@@ -31,7 +31,7 @@ const Conversation = ({conversation, socketRef}) => {
     const handleCurrentRecipient = () => {
         
         const recipientId = conversation.users.find(userId => userId !== currentUser._id)
-        axios.post("http://localhost:3001/finduser", {_id: recipientId})
+        axios.post("https://evening-reaches-01572.herokuapp.com/finduser", {_id: recipientId})
         .then(res => {
             setRecipientUsername(res.data.user.username)
             setCurrentChatroom(conversation.number)

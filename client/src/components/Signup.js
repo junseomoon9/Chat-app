@@ -35,7 +35,7 @@ const Signup = () => {
     const signup = (e) => {
         e.preventDefault()
         const user = {name: name, username: username, email: email, password: password}
-        axios.post("http://localhost:3001/signup", user)
+        axios.post("https://evening-reaches-01572.herokuapp.com/signup", user)
         .then(res => {
             setErrorMessage("")
             setResponseMessage("Successfully Signed Up")
