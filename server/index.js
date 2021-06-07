@@ -11,7 +11,7 @@ const mongoose = require('mongoose')
 app.use(router)
 
 //Connect to DB
-mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
+mongoose.connect(process.env.MONGO_URI || process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
     console.log('connected to db!')
 })
 
