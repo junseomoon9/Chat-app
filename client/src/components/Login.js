@@ -31,21 +31,23 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
-    const login = (e) => {
+    const login =  (e) => {
         e.preventDefault()
         const credentials = {username: username, password: password}
 
         axios.post("https://evening-reaches-01572.herokuapp.com/login", credentials)
-        .then(res => {
+        .then(async res => {
             setErrorMessage("")
             //localStorage.setItem('token', JSON.stringify(res.data.token))
             const user = {_id: res.data._id, name: res.data.name, username: res.data.username, email: res.data.email}
             setCurrentUser(user)
-            socketRef.current = socketClient("https://evening-reaches-01572.herokuapp.com/");
+            
             retrieveConversations(user)
-            retrieveMessages()
+            
+            socketRef.current = socketClient("https://evening-reaches-01572.herokuapp.com/");
             setResponseMessage("Successfully Logged In")
             setTimeout(() => {
+                retrieveMessages()
                 setSuccessfulLogin(true)
             }, 2500)
             

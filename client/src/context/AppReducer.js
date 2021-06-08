@@ -16,16 +16,19 @@ export default (state, action) => {
               currentChatroom: action.payload
           }
       case "CREATE_NEW_CONVERSATION":
+          
           return {
               ...state,
               conversations: [ ...state.conversations, action.payload]
           }
       case "RETRIEVE_EXISTING_CONVERSATIONS": 
+       
           return {
               ...state,
               conversations: [...action.payload]
           }
       case "ADD_NEW_MESSAGE":
+         
           return {
             ...state,
             conversations: state.conversations.map(conversation => {

@@ -16,27 +16,26 @@ export const ConversationsProvider = props => {
     const [state, dispatch] = useReducer(AppReducer, initialState)
     
 
-    function retrieveConversations(user) {
+     function retrieveConversations(user) {
         
         axios.post("https://evening-reaches-01572.herokuapp.com/chat/retrieveConversations", {currentUserId: user._id})
         .then(res => {
-            
+           
             dispatch({type: "RETRIEVE_EXISTING_CONVERSATIONS", payload: res.data.conversations})
         }).catch(err => {
             console.log(err.response)
         })
+        
     }
 
-    function retrieveMessages() {
+     function retrieveMessages() {
         axios.post("https://evening-reaches-01572.herokuapp.com/chat/retrieveMessages")
         .then(res => {
-            console.log(res.data.messages)
+   
             for (var i = 0; i < res.data.messages.length; i++) {
                 dispatch({type: "ADD_NEW_MESSAGE", payload: res.data.messages[i]})
             }
-            // res.data.messages.forEach(message => {
-                
-            // })
+           
             
         }).catch(err => {
             console.log(err.response)
@@ -56,7 +55,7 @@ export const ConversationsProvider = props => {
         dispatch({type: "SET_CURRENT_CHATROOM", payload: room_id})
     }
     function deleteMessage(message) {
-        console.log(message)
+       
         dispatch({type: "DELETE_MESSAGE", payload: message})
     }
 
