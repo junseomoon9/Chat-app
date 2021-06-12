@@ -8,7 +8,7 @@ A chat application built with React, MongoDB, Express, Node JS and Socket.io.
 - Login or Signup and create a new account.
 - Live messaging.
 - Create new conversations by entering the recipient's username.
-- Create and delete messages.
+- Delete messages by right clicking on a message that you have sent.
 - Saves messages and conversations when exiting application.
 
 # Installing
